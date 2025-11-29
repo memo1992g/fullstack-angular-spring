@@ -1,135 +1,131 @@
-📘 DOCUMENTACIÓN – Aplicación Full Stack (Angular + Spring Boot + JWT)
-📌 Descripción General del Proyecto
+📘 Aplicación Full Stack – Angular 19 + Spring Boot 3 + JWT
 
-Esta es una aplicación Full Stack desarrollada como parte de una prueba técnica.
-Incluye:
+Base de datos utilizada: MySQL
 
-Backend en Spring Boot 3 + Java 17
+Este proyecto Full Stack implementa autenticación JWT, autorización por roles, CRUD de productos y un frontend moderno con Angular Material.
+Fue desarrollado como parte de una prueba técnica con tiempo limitado de 4 horas, priorizando funcionalidad completa, claridad y buenas prácticas.
 
-Frontend en Angular 19 con Angular Material
+⚠️ Nota sobre la elección de base de datos
 
-Base de datos SQL Server (o MySQL opcional)
+El proyecto podía implementarse con SQL Server o MySQL, ambos contemplados como opciones válidas.
 
-Autenticación segura con JWT
+Sin embargo, para optimizar el tiempo de desarrollo dentro de la ventana disponible (4 horas) y garantizar una entrega completamente funcional, se eligió MySQL, ya que:
 
-Autorización basada en roles
+Ya estaba instalado y configurado en el entorno local
 
-CRUD profesional de productos
+Permitía avanzar inmediatamente sin invertir tiempo adicional en instalaciones
 
-📂 Estructura del Repositorio
-/backend
-    ├── src/main/java
-    ├── src/main/resources
-    ├── pom.xml
-/frontend
-    ├── src/app
-    ├── angular.json
-    ├── package.json
-/sql
-    └── database.sql
-README.md
+Se evitó la descarga, instalación y configuración de SQL Server (que puede tardar entre 1 y 2 horas)
 
-🔐 1. Autenticación y Seguridad
+👉 La elección fue estratégica para garantizar el cumplimiento del tiempo y entregar un proyecto funcional y completo.
 
-La aplicación implementa:
+🏗️ Arquitectura General
+┌───────────────────────────────┐
+│            Angular            │
+│        (Login + CRUD)         │
+└───────────────┬───────────────┘
+                │ HTTP (JWT)
+                ▼
+┌───────────────────────────────┐
+│        Spring Boot API        │
+│  /auth/login  /api/productos  │
+│  Security + JWT + Roles       │
+└───────────────┬───────────────┘
+                │ JDBC
+                ▼
+┌───────────────────────────────┐
+│              MySQL            │
+└───────────────────────────────┘
 
-✔ Spring Security 6
+🔐 Autenticación (JWT)
 
-JWT para autenticación
-
-Roles ( ROLE_ADMIN)
-
-Filtros personalizados
-
-Contraseñas encriptadas con BCrypt
-
-✔ Protección de rutas
-
-/auth/** → público
-
-/api/productos/** → requiere token
-
-CRUD restringido solo para ADMIN
-
-⚙️ 2. Requerimientos Previos
-🖥️ Backend
-
-Java 17+
-
-Maven 3.8+
-
-SQL Server o MySQL
-
-🌐 Frontend
-
-Node.js 18+
-
-Angular CLI 19
-
-NPM 9+
-
-🛠️ 3. Configuración del Backend
-📌 3.1 Clonar el repositorio
-git clone https://github.com/TU_USUARIO/TU_REPO.git
-cd backend
-
-📌 3.2 Configurar Base de Datos
-
-Archivo:
-src/main/resources/application.properties
-
-SQL Server
-spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=fullstack
-spring.datasource.username=sa
-spring.datasource.password=tu_password
-spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-
-MySQL
-spring.datasource.url=jdbc:mysql://localhost:3306/fullstack?useSSL=false
-spring.datasource.username=root
-spring.datasource.password=root
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-
-📦 4. Dependencias del Backend (pom.xml)
-
-Incluye:
-
-Spring Web
+El proyecto utiliza:
 
 Spring Security
 
-JWT (jjwt)
+JWT para autenticación y autorización
 
-Lombok
+BCrypt para contraseñas
 
-Spring Data JPA
+Filtro JWT personalizado
 
-SQL Server Driver
+Rol ADMIN
 
-▶ 5. Ejecutar el Backend
+Flujo:
+
+Angular envía email + password
+
+Spring Boot valida y genera JWT
+
+Angular guarda el token
+
+Cada request envía:
+Authorization: Bearer <token>
+
+El filtro JWT autoriza o rechaza
+
+📂 Estructura del Proyecto
+/backend
+/frontend
+/sql/database.sql
+
+Backend (Spring Boot)
+com.fullstack.backend
+ ├── controller
+ ├── service
+ ├── security
+ ├── repository
+ ├── entity
+ └── dto
+
+Frontend (Angular 19)
+src/app
+ ├── auth
+ ├── products
+ ├── core
+ └── shared
+
+⚙️ Requerimientos
+Backend
+
+Java 17
+
+Maven 3.8+
+
+MySQL 8
+
+Frontend
+
+Node.js 18
+
+Angular CLI 19
+
+🛠️ Configuración Backend (MySQL)
+Crear la base de datos
+CREATE DATABASE fullstack;
+
+Configurar application.properties
+spring.datasource.url=jdbc:mysql://localhost:3306/fullstack?useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+
+🚀 Ejecutar Backend
 mvn spring-boot:run
 
 
-Se levanta en:
-
 👉 http://localhost:8080
 
-🧪 6. Usuario Inicial (Seeder)
-
-Al iniciar por primera vez la aplicación, se crea automáticamente:
-
-👤 ADMIN
+🧪 Usuario Inicial
 email: admin@mail.com
 password: admin123
-role: ADMIN
+rol: ADMIN
 
-📘 7. Endpoints Backend
-🔑 Autenticación
-POST /auth/login
+📘 Endpoints Backend
+🔑 POST /auth/login
 
 Body:
 
@@ -138,100 +134,56 @@ Body:
   "password": "admin123"
 }
 
-
-Retorna un JWT:
-
-{
-  "token": "...."
-}
-
-📦 CRUD de Productos
-✔ GET /api/productos
-✔ GET /api/productos/{id}
-✔ POST /api/productos
-✔ PUT /api/productos/{id}
-✔ DELETE /api/productos/{id}
-
-Todas requieren token.
-
-🧭 8. Configuración del Frontend (Angular)
-📌 8.1 Instalación
+📦 CRUD Productos
+Método	Endpoint	Rol
+GET	/api/productos	Token
+GET	/api/productos/{id}	Token
+POST	/api/productos	ADMIN
+PUT	/api/productos/{id}	ADMIN
+DELETE	/api/productos/{id}	ADMIN
+🧭 Frontend – Angular 19
+Instalación
 cd frontend
 npm install
 
-📌 8.2 Ejecutar
+Ejecutar
 ng serve -o
 
 
-Se levanta en:
-
 👉 http://localhost:4200
 
-🔐 9. Comunicación con el Backend
-
-El archivo:
+🔐 Configuración Angular
 
 src/environments/environment.ts
-
-Debe contener:
 
 export const environment = {
   apiUrl: 'http://localhost:8080'
 };
 
-🎨 10. Frontend – Funcionalidad
+🎨 Funcionalidades del Frontend
+
 ✔ Login
+✔ Guard de autenticación
+✔ Interceptor JWT
+✔ CRUD productos
+✔ Angular Material
+✔ Validaciones reactivas
+✔ Diálogos de confirmación
+✔ Sidenav y UI limpia
 
-Formulario Material
+📂 Script SQL
 
-Manejo de errores
+sql/database.sql
 
-Guarda token en localStorage
-
-Redirige al panel
-
-✔ Guard (authGuard)
-
-Protege rutas según existencia de token
-
-✔ Panel de Productos
-
-Tabla con Angular Material
-
-Botón crear
-
-Acciones: editar, eliminar
-
-Diálogo Material para confirmación
-
-Loading spinner
-
-Sidenav con menú lateral
-
-✔ Crear Producto (Material)
-
-Formulario con validaciones
-
-Botón guardar
-
-Redirige al listado
-
-✔ Editar Producto (Material)
-
-Carga datos desde backend
-
-Actualiza registro
-
-🗄️ 11. Script SQL (database.sql)
 CREATE TABLE usuarios (
-    id INT IDENTITY(1,1) PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(200) NOT NULL,
     rol VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE productos (
-    id INT IDENTITY(1,1) PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(150) NOT NULL,
     descripcion VARCHAR(255),
     precio DECIMAL(10,2) NOT NULL,
@@ -239,7 +191,6 @@ CREATE TABLE productos (
     tipo VARCHAR(50)
 );
 
--- Usuario Admin (password = admin123 encriptada)
 INSERT INTO usuarios (email, password, rol)
 VALUES (
     'admin@mail.com',
@@ -247,29 +198,25 @@ VALUES (
     'ADMIN'
 );
 
-📫 12. Colección de Postman incluida
+📫 Postman
 
-La API incluye colecciones para:
+Incluye:
 
 Login
 
-CRUD
+CRUD Productos
 
-Endpoints protegidos
+JWT en headers
 
-🏁 13. Cómo probar todo rápidamente
-1️⃣ Iniciar backend
-mvn spring-boot:run
+🏁 Cómo probar todo
 
-2️⃣ Iniciar frontend
-ng serve -o
+1️⃣ Levantar MySQL
+2️⃣ Ejecutar backend
+3️⃣ Ejecutar frontend
+4️⃣ Login:
 
-3️⃣ Login en Angular
+email: admin@mail.com  
+password: admin123
 
-Email: admin@mail.com
 
-Password: admin123
-
-4️⃣ Ingresar a /products
-
-CRUD funcional con JWT.
+5️⃣ Entrar a productos → CRUD activo
