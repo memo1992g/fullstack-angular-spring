@@ -1,0 +1,54 @@
+<!-- Toolbar solo si está logueado -->
+<ng-container *ngIf="isLoggedIn && !isLoginPage">
+
+  <mat-sidenav-container class="app-container">
+
+    <!-- SIDENAV -->
+    <mat-sidenav #drawer mode="side" opened="false" class="side-menu">
+      <mat-nav-list>
+
+        <a mat-list-item routerLink="/products" routerLinkActive="active-link">
+          <mat-icon>list</mat-icon>
+          <span> Productos </span>
+        </a>
+
+        <a mat-list-item routerLink="/products/create" routerLinkActive="active-link">
+          <mat-icon>add</mat-icon>
+          <span> Crear Producto </span>
+        </a>
+
+        <a mat-list-item (click)="logout()">
+          <mat-icon color="warn">logout</mat-icon>
+          <span> Logout </span>
+        </a>
+
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- MAIN CONTENT -->
+    <mat-sidenav-content>
+
+      <!-- TOP TOOLBAR -->
+      <mat-toolbar color="primary">
+        <button mat-icon-button (click)="toggleMenu()">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <span>Panel Administrador</span>
+      </mat-toolbar>
+
+      <!-- RUTAS -->
+      <div class="main-container">
+        <router-outlet></router-outlet>
+      </div>
+
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+</ng-container>
+
+<!-- Si está en login -->
+<ng-container *ngIf="isLoginPage">
+  <router-outlet></router-outlet>
+</ng-container>

@@ -1,0 +1,58 @@
+<mat-card class="card">
+
+    <h2>Editar Producto</h2>
+  
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading">
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  
+    <form *ngIf="!loading" #form="ngForm" (ngSubmit)="actualizarProducto(form)" class="form">
+  
+      <!-- Nombre -->
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Nombre</mat-label>
+        <input matInput required [(ngModel)]="producto.nombre" name="nombre">
+      </mat-form-field>
+  
+      <!-- Descripción -->
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Descripción</mat-label>
+        <input matInput required [(ngModel)]="producto.descripcion" name="descripcion">
+      </mat-form-field>
+  
+      <!-- Precio -->
+      <mat-form-field appearance="outline" class="half">
+        <mat-label>Precio</mat-label>
+        <input matInput type="number" required [(ngModel)]="producto.precio" name="precio">
+      </mat-form-field>
+  
+      <!-- Stock -->
+      <mat-form-field appearance="outline" class="half">
+        <mat-label>Stock</mat-label>
+        <input matInput type="number" required [(ngModel)]="producto.stock" name="stock">
+      </mat-form-field>
+  
+      <!-- Tipo -->
+      <mat-form-field appearance="outline" class="full">
+        <mat-label>Tipo</mat-label>
+        <input matInput required [(ngModel)]="producto.tipo" name="tipo">
+      </mat-form-field>
+  
+      <!-- BOTONES -->
+      <div class="actions">
+  
+        <button mat-raised-button color="primary" type="submit">
+          Actualizar
+        </button>
+  
+        <button mat-button color="warn" type="button" routerLink="/products">
+          Cancelar
+        </button>
+  
+      </div>
+  
+    </form>
+  
+  </mat-card>
+  

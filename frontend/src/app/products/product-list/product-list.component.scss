@@ -1,0 +1,40 @@
+.container {
+    padding: 20px;
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .logout-btn {
+    margin-right: 15px;
+  }
+  
+  /* Color Encabezado */
+  .mat-header-cell {
+    background: #1976d2 !important;
+    color: white !important;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .mat-row:hover {
+    background: #f3f3f3;
+  }
+  
+  .table-container {
+    margin-top: 20px;
+  }
+  
+  .error-card {
+    padding: 15px;
+    background: #ffebee;
+    color: #c62828;
+  }
+  
+  .no-data {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+  }
+  

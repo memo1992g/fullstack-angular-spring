@@ -1,0 +1,25 @@
+.card {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
+  }
+  
+  .full {
+    width: 100%;
+  }
+  
+  .half {
+    width: 48%;
+    margin-right: 2%;
+  }
+  
+  .half:last-child {
+    margin-right: 0;
+  }
+  
+  .actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+  }
+  
