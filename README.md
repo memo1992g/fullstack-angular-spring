@@ -20,22 +20,17 @@ Se evitó la descarga, instalación y configuración de SQL Server (que puede ta
 👉 La elección fue estratégica para garantizar el cumplimiento del tiempo y entregar un proyecto funcional y completo.
 
 🏗️ Arquitectura General
-┌───────────────────────────────┐
-│            Angular            │
-│        (Login + CRUD)         │
-└───────────────┬───────────────┘
-                │ HTTP (JWT)
-                ▼
-┌───────────────────────────────┐
-│        Spring Boot API        │
-│  /auth/login  /api/productos  │
-│  Security + JWT + Roles       │
-└───────────────┬───────────────┘
-                │ JDBC
-                ▼
-┌───────────────────────────────┐
-│              MySQL            │
-└───────────────────────────────┘
+
+Frontend (Angular 19)
+        |
+        |  HTTP + JWT
+        v
+Backend (Spring Boot 3)
+        |
+        |  JDBC
+        v
+Base de Datos (MySQL)
+
 
 🔐 Autenticación (JWT)
 
