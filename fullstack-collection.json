@@ -1,0 +1,126 @@
+{
+    "info": {
+      "name": "Fullstack - Backend API",
+      "_postman_id": "a1b2c3d4-e5f6-7890-1234-abcdef987654",
+      "description": "Colección de servicios del backend Fullstack (Auth + Productos)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Login",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"email\": \"admin@mail.com\",\n  \"password\": \"admin123\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:8080/auth/login",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["auth", "login"]
+              }
+            },
+            "response": []
+          }
+        ]
+      },
+      {
+        "name": "Productos",
+        "item": [
+          {
+            "name": "Listar todos",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "http://localhost:8080/api/productos",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "productos"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Obtener por ID",
+            "request": {
+              "method": "GET",
+              "url": {
+                "raw": "http://localhost:8080/api/productos/{{id}}",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "productos", "{{id}}"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Crear producto",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"nombre\": \"Laptop Gamer\",\n  \"descripcion\": \"Potente equipo de gaming\",\n  \"precio\": 1499.99,\n  \"stock\": 10\n}"
+              },
+              "url": {
+                "raw": "http://localhost:8080/api/productos",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "productos"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Actualizar producto",
+            "request": {
+              "method": "PUT",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"nombre\": \"Laptop Gamer PRO\",\n  \"descripcion\": \"Actualizada y mejorada\",\n  \"precio\": 1599.99,\n  \"stock\": 15\n}"
+              },
+              "url": {
+                "raw": "http://localhost:8080/api/productos/{{id}}",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "productos", "{{id}}"]
+              }
+            },
+            "response": []
+          },
+          {
+            "name": "Eliminar producto",
+            "request": {
+              "method": "DELETE",
+              "url": {
+                "raw": "http://localhost:8080/api/productos/{{id}}",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "8080",
+                "path": ["api", "productos", "{{id}}"]
+              }
+            },
+            "response": []
+          }
+        ]
+      }
+    ]
+  }
+  
